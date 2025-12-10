@@ -4,5 +4,5 @@ module com.ezequiel.cadastrocrud {
 
 
     opens com.ezequiel.cadastrocrud to javafx.fxml;
-    exports com.ezequiel.cadastrocrud;
+    exports com.ezequiel.cadastrocrud to javafx.graphics;
 }
