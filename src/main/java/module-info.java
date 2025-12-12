@@ -2,7 +2,8 @@ module com.ezequiel.cadastrocrud {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
-
+    requires java.sql;
+    requires mysql.connector.j;
 
     opens com.ezequiel.cadastrocrud to javafx.fxml;
 
