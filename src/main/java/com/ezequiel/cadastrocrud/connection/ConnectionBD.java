@@ -11,9 +11,7 @@ public class ConnectionBD {
     private static final String PASSWORD = "dev123";
 
     public static Connection connectonDB(){
-
         try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException | ClassNotFoundException e) {

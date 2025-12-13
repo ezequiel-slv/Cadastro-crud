@@ -3,7 +3,6 @@ package com.ezequiel.cadastrocrud.service;
 import com.ezequiel.cadastrocrud.connection.ConnectionBD;
 import com.ezequiel.cadastrocrud.domain.Estudante;
 import com.ezequiel.cadastrocrud.repository.EstudanteInterface;
-
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class EstudanteService implements EstudanteInterface {
     public void inserir(Estudante estudante) {
 
         try {
-
             String sql = "INSERT INTO estudante(nome, sexo, idade) VALUES(?, ?, ?)";
             PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
 
