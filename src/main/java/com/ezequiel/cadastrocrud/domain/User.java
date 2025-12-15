@@ -1,6 +1,6 @@
 package com.ezequiel.cadastrocrud.domain;
 
-public class Estudante {
+public class User {
     private long id;
     private String nome;
     private String sexo;
