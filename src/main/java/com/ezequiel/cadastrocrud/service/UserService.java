@@ -2,13 +2,30 @@ package com.ezequiel.cadastrocrud.service;
 
 import com.ezequiel.cadastrocrud.connection.ConnectionBD;
 import com.ezequiel.cadastrocrud.domain.User;
-import com.ezequiel.cadastrocrud.repository.EstudanteInterface;
+import com.ezequiel.cadastrocrud.repository.UserInterface;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EstudanteService implements EstudanteInterface {
+public class UserService implements UserInterface {
+    @Override
+    public void editar(User user, long id) {
+        try{
+            String sql = "UPDATE estudante SET nome=?, idade=?, sexo=?";
+            PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
+
+            ps.setString(1, user.getNome());
+            ps.setInt(2, user.getIdade());
+            ps.setString(3, user.getSexo());
+
+            ps.executeUpdate();
+
+        }catch (Exception e){
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
     @Override
     public void buscarId(long id) {
 

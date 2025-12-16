@@ -4,7 +4,7 @@ import com.ezequiel.cadastrocrud.domain.User;
 
 import java.util.List;
 
-public interface EstudanteInterface {
+public interface UserInterface {
 
      void buscarId(long id);
 
@@ -13,4 +13,6 @@ public interface EstudanteInterface {
      void inserir(User user);
 
      void deletar(long id);
+
+     void editar(User user, long id);
 }
