@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Teste {
     static void main(String[] args) {
-
         /*
 
         User user = new User();
@@ -35,12 +34,8 @@ public class Teste {
 
         }
 
-         */
-
-
-
         UserService us3 = new UserService();
-        User user = new User();
+        User user2 = new User();
 
         user.setNome("Ezy");
         user.setIdade(23);
@@ -49,5 +44,13 @@ public class Teste {
         us3.editar(user, 1);
 
 
+         */
+
+        UserService us4 = new UserService();
+        User user3 = new User();
+
+        user3 = us4.buscarId(13);
+
+        System.out.println("nome: " + user3.getNome());
     }
 }

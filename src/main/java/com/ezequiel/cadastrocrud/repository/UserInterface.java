@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserInterface {
 
-     void buscarId(long id);
+     User buscarId(long id);
 
      List<User> buscarTodos();
 

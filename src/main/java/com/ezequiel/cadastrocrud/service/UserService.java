@@ -27,8 +27,35 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public void buscarId(long id) {
+    public User buscarId(long id) {
+        User user = null;
 
+        try{
+
+            String sql = "SELECT * from estudante where id=?";
+
+            PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
+            ps.setLong(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()){
+
+                user = new User();
+
+                user.setId(rs.getLong("id"));
+                user.setNome(rs.getString("nome"));
+                user.setIdade(rs.getInt("idade"));
+                user.setSexo(rs.getString("sexo"));
+
+            }
+
+        }catch (Exception e){
+
+            System.out.println("Erro: " + e.getMessage());
+        }
+
+        return user;
     }
 
     @Override
