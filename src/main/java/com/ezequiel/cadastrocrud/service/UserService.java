@@ -12,12 +12,13 @@ public class UserService implements UserInterface {
     @Override
     public void editar(User user, long id) {
         try{
-            String sql = "UPDATE estudante SET nome=?, idade=?, sexo=?";
+            String sql = "UPDATE estudante SET nome=?, idade=?, sexo=? where id=?";
             PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
 
             ps.setString(1, user.getNome());
             ps.setInt(2, user.getIdade());
             ps.setString(3, user.getSexo());
+            ps.setLong(4, id);
 
             ps.executeUpdate();
 
@@ -94,12 +95,13 @@ public class UserService implements UserInterface {
     public void inserir(User user) {
 
         try {
-            String sql = "INSERT INTO estudante(nome, sexo, idade) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO estudante(nome, sexo, idade, id) VALUES(?, ?, ?, ?)";
             PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
 
             ps.setString(1, user.getNome());
             ps.setString(2, user.getSexo());
             ps.setInt(3, user.getIdade());
+            ps.setLong(4, user.getId());
             ps.executeUpdate();
 
         }catch (Exception e){
@@ -112,5 +114,16 @@ public class UserService implements UserInterface {
     @Override
     public void deletar(long id) {
 
+        try{
+
+            String sql = "DELETE from estudante where id=? ";
+
+            PreparedStatement ps = ConnectionBD.connectonDB().prepareStatement(sql);
+            ps.setLong(1, id);
+            ps.execute();
+
+        }catch (Exception e){
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }
