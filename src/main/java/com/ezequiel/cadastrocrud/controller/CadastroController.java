@@ -1,5 +1,7 @@
 package com.ezequiel.cadastrocrud.controller;
 
+import com.ezequiel.cadastrocrud.domain.User;
+import com.ezequiel.cadastrocrud.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,34 +49,41 @@ public class CadastroController implements Initializable {
 
     @FXML
     private TableView tv_campo_bd;
+
+    User user = new User();
+    UserService userService = new UserService();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    @FXML
+    public void salvarDados(ActionEvent event){
+        user.setNome(tf_nome.getText().toString());
+        user.setIdade(Integer.valueOf(tf_idade.getText().toString()));
+
+        if (rb_masculino.isSelected()){
+            user.setSexo("Masculino");
+        }
+
+        if (rb_feminino.isSelected()){
+            user.setSexo("Feminino");
+        }
+
+        userService.inserir(user);
+
+        System.out.println("Usuário salvo");
+    }
 
     @FXML
-    void salvarDados(javafx.event.ActionEvent actionEvent) {
-        String nome = tf_nome.getText();
+    public void editarDados(ActionEvent event){
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Salvar");
-        alert.setHeaderText("Arquivo salvo");
-        alert.setContentText(nome);
-        alert.show();
     }
 
-    public void editarDados(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Editar");
-        alert.setHeaderText("Arquivo editado");
-        alert.show();
-    }
+    @FXML
+    public void deletarDados(ActionEvent event){
 
-    public void deletarDados(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Deletar");
-        alert.setHeaderText("Arquivo deletado");
-        alert.show();
     }
 }
