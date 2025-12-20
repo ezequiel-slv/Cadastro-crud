@@ -61,20 +61,23 @@ public class CadastroController implements Initializable {
 
     @FXML
     public void salvarDados(ActionEvent event){
-        user.setNome(tf_nome.getText().toString());
-        user.setIdade(Integer.valueOf(tf_idade.getText().toString()));
 
-        if (rb_masculino.isSelected()){
-            user.setSexo("Masculino");
+        if (validar()) {
+            user.setNome(tf_nome.getText().toString());
+            user.setIdade(Integer.valueOf(tf_idade.getText().toString()));
+
+            if (rb_masculino.isSelected()) {
+                user.setSexo("Masculino");
+            }
+
+            if (rb_feminino.isSelected()) {
+                user.setSexo("Feminino");
+            }
+
+            userService.inserir(user);
+
+            System.out.println("Usuário salvo");
         }
-
-        if (rb_feminino.isSelected()){
-            user.setSexo("Feminino");
-        }
-
-        userService.inserir(user);
-
-        System.out.println("Usuário salvo");
     }
 
     @FXML
@@ -84,6 +87,31 @@ public class CadastroController implements Initializable {
 
     @FXML
     public void deletarDados(ActionEvent event){
+
+    }
+
+    public boolean validar(){
+
+        StringBuffer mensagem = new StringBuffer();
+
+        if (tf_nome.getText().isEmpty()){
+            mensagem.append("O campo nome é obrigatório!\n");
+        }
+
+        if (tf_idade.getText().isEmpty()){
+            mensagem.append("O campo idade é obrigatório!\n");
+        }
+
+        if (!mensagem.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("ERRO");
+            alert.setContentText(mensagem.toString());
+            alert.show();
+
+            return false;
+        }else {
+            return true;
+        }
 
     }
 }
