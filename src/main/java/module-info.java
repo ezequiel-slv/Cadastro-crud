@@ -9,5 +9,7 @@ module com.ezequiel.cadastrocrud {
 
     opens com.ezequiel.cadastrocrud.controller to javafx.fxml;
 
+    opens com.ezequiel.cadastrocrud.domain to javafx.base;
+
     exports com.ezequiel.cadastrocrud to javafx.graphics;
 }

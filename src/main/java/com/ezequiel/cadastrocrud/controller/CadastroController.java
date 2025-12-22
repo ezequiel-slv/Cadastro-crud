@@ -2,11 +2,16 @@ package com.ezequiel.cadastrocrud.controller;
 
 import com.ezequiel.cadastrocrud.domain.User;
 import com.ezequiel.cadastrocrud.service.UserService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CadastroController implements Initializable {
@@ -53,10 +58,13 @@ public class CadastroController implements Initializable {
     User user = new User();
     UserService userService = new UserService();
 
+    private List<User> todosUsuarios;
+    private ObservableList<User> userObservableList;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        prepararTabela();
     }
 
     @FXML
@@ -75,6 +83,8 @@ public class CadastroController implements Initializable {
             }
 
             userService.inserir(user);
+            prepararTabela();
+            limpar();
 
             System.out.println("Usuário salvo");
         }
@@ -113,5 +123,22 @@ public class CadastroController implements Initializable {
             return true;
         }
 
+    }
+
+    void prepararTabela(){
+
+        tc_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tc_nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tc_sexo.setCellValueFactory(new PropertyValueFactory<>("sexo"));
+        tc_idade.setCellValueFactory(new PropertyValueFactory<>("idade"));
+
+        todosUsuarios = userService.buscarTodos();
+        userObservableList = FXCollections.observableList(todosUsuarios);
+        tv_campo_bd.setItems(userObservableList);
+    }
+
+    void limpar(){
+        tf_nome.setText("");
+        tf_idade.setText("");
     }
 }
