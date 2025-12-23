@@ -65,6 +65,7 @@ public class CadastroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepararTabela();
+        ocultarBotoes();
     }
 
     @FXML
@@ -140,5 +141,10 @@ public class CadastroController implements Initializable {
     void limpar(){
         tf_nome.setText("");
         tf_idade.setText("");
+    }
+
+    void ocultarBotoes(){
+        bt_editar.setVisible(false);
+        bt_deletar.setVisible(false);
     }
 }
