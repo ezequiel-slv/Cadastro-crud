@@ -61,7 +61,7 @@
             </GridPane.margin>
         </Button>
     </GridPane>
-    <TableView fx:id="tv_campo_bd" layoutX="196.0" layoutY="233.0" prefHeight="200.0" prefWidth="304.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="250.0">
+    <TableView fx:id="tv_campo_bd" layoutX="196.0" layoutY="233.0" onMouseClicked="#preencherCampos" prefHeight="200.0" prefWidth="304.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="250.0">
         <columns>
             <TableColumn fx:id="tc_id" prefWidth="145.0" text="ID" />
             <TableColumn fx:id="tc_nome" prefWidth="145.0" text="NOME" />

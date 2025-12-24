@@ -4,6 +4,7 @@ module com.ezequiel.cadastrocrud {
     requires java.desktop;
     requires java.sql;
     requires mysql.connector.j;
+    requires com.google.protobuf;
 
     opens com.ezequiel.cadastrocrud to javafx.fxml;
 

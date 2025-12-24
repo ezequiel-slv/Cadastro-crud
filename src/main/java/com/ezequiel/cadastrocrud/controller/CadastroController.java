@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,16 +35,16 @@ public class CadastroController implements Initializable {
     private ToggleGroup sexo;
 
     @FXML
-    private TableColumn tc_id;
+    private TableColumn<User, Long> tc_id;
 
     @FXML
-    private TableColumn tc_idade;
+    private TableColumn<User, Integer> tc_idade;
 
     @FXML
-    private TableColumn tc_nome;
+    private TableColumn<User, String> tc_nome;
 
     @FXML
-    private TableColumn tc_sexo;
+    private TableColumn<User, String> tc_sexo;
 
     @FXML
     private TextField tf_idade;
@@ -58,7 +58,6 @@ public class CadastroController implements Initializable {
     User user = new User();
     UserService userService = new UserService();
 
-    private List<User> todosUsuarios;
     private ObservableList<User> userObservableList;
 
 
@@ -88,6 +87,26 @@ public class CadastroController implements Initializable {
             limpar();
 
             System.out.println("Usuário salvo");
+        }
+    }
+
+    @FXML
+    void preencherCampos(MouseEvent event){
+        user  =  (User) tv_campo_bd.getSelectionModel().getSelectedItem();
+
+        if (user != null){
+
+            bt_salvar.setVisible(false);
+            bt_editar.setVisible(true);
+
+            tf_nome.setText(user.getNome());
+            tf_idade.setText(String.valueOf(user.getIdade()));
+
+            if (user.getSexo().equals("Masculino")){
+                rb_masculino.setSelected(true);
+            } else if (user.getSexo().equals("Feminino")) {
+                rb_feminino.setSelected(true);
+            }
         }
     }
 
@@ -133,7 +152,7 @@ public class CadastroController implements Initializable {
         tc_sexo.setCellValueFactory(new PropertyValueFactory<>("sexo"));
         tc_idade.setCellValueFactory(new PropertyValueFactory<>("idade"));
 
-        todosUsuarios = userService.buscarTodos();
+        List<User> todosUsuarios = userService.buscarTodos();
         userObservableList = FXCollections.observableList(todosUsuarios);
         tv_campo_bd.setItems(userObservableList);
     }
@@ -144,7 +163,7 @@ public class CadastroController implements Initializable {
     }
 
     void ocultarBotoes(){
-        bt_editar.setVisible(false);
-        bt_deletar.setVisible(false);
+        this.bt_editar.setVisible(false);
+        this.bt_deletar.setVisible(false);
     }
 }
