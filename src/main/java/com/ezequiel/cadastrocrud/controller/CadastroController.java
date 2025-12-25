@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CadastroController implements Initializable {
@@ -96,6 +97,7 @@ public class CadastroController implements Initializable {
 
             bt_salvar.setVisible(false);
             bt_editar.setVisible(true);
+            bt_deletar.setVisible(true);
 
             tf_nome.setText(user.getNome());
             tf_idade.setText(String.valueOf(user.getIdade()));
@@ -132,8 +134,21 @@ public class CadastroController implements Initializable {
     }
 
     @FXML
-    public void deletarDados(ActionEvent event){
+    void deletarDados(){
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Excluir");
+        alert.setHeaderText("Deseja excluir esses dados?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK){
+            userService.deletar(user.getId());
+            prepararTabela();
+            limpar();
+
+            bt_salvar.setVisible(true);
+        }
     }
 
     public boolean validar(){
