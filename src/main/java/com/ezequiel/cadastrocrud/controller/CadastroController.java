@@ -58,8 +58,6 @@ public class CadastroController implements Initializable {
     User user = new User();
     UserService userService = new UserService();
 
-    private ObservableList<User> userObservableList;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,8 +69,8 @@ public class CadastroController implements Initializable {
     public void salvarDados(ActionEvent event){
 
         if (validar()) {
-            user.setNome(tf_nome.getText().toString());
-            user.setIdade(Integer.valueOf(tf_idade.getText().toString()));
+            user.setNome(tf_nome.getText());
+            user.setIdade(Integer.parseInt(tf_idade.getText()));
 
             if (rb_masculino.isSelected()) {
                 user.setSexo("Masculino");
@@ -111,8 +109,26 @@ public class CadastroController implements Initializable {
     }
 
     @FXML
-    public void editarDados(ActionEvent event){
+    void editarDados(ActionEvent event){
+        if (validar()){
+            user.setNome(tf_nome.getText());
+            user.setIdade(Integer.parseInt(tf_idade.getText()));
 
+            if (rb_masculino.isSelected()) {
+                user.setSexo("Masculino");
+            }
+
+            if (rb_feminino.isSelected()) {
+                user.setSexo("Feminino");
+            }
+
+            userService.editar(user, user.getId() );
+            prepararTabela();
+            limpar();
+
+            bt_salvar.setVisible(true);
+            bt_editar.setVisible(false);
+        }
     }
 
     @FXML
@@ -122,7 +138,7 @@ public class CadastroController implements Initializable {
 
     public boolean validar(){
 
-        StringBuffer mensagem = new StringBuffer();
+        StringBuilder mensagem = new StringBuilder();
 
         if (tf_nome.getText().isEmpty()){
             mensagem.append("O campo nome é obrigatório!\n");
@@ -153,7 +169,7 @@ public class CadastroController implements Initializable {
         tc_idade.setCellValueFactory(new PropertyValueFactory<>("idade"));
 
         List<User> todosUsuarios = userService.buscarTodos();
-        userObservableList = FXCollections.observableList(todosUsuarios);
+        ObservableList<User> userObservableList = FXCollections.observableList(todosUsuarios);
         tv_campo_bd.setItems(userObservableList);
     }
 
